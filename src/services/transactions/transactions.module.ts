@@ -1,19 +1,19 @@
 import { Module } from '@nestjs/common';
 import { TransactionsService } from './transactions.service';
 import { MongooseModule } from '@nestjs/mongoose';
-import { Topup, TopupSchema } from '@/entities/topup.entity';
-import { Transaction, TransactionSchema } from '@/entities/transaction.entity';
+import { TopupV2, TopupSchema } from '@/entities/topup.entity';
+import { TransactionV2, TransactionSchema } from '@/entities/transaction.entity';
 import {
-    TransactionHistory,
+    TransactionHistoryV2,
     TransactionHistorySchema,
 } from '@/entities/transaction-history.entity';
 
 @Module({
     imports: [
         MongooseModule.forFeature([
-            { name: Transaction.name, schema: TransactionSchema },
-            { name: TransactionHistory.name, schema: TransactionHistorySchema },
-            { name: Topup.name, schema: TopupSchema },
+            { name: TransactionV2.name, schema: TransactionSchema },
+            { name: TransactionHistoryV2.name, schema: TransactionHistorySchema },
+            { name: TopupV2.name, schema: TopupSchema },
         ]),
     ],
     providers: [TransactionsService],

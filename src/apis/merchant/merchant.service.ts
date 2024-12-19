@@ -3,13 +3,13 @@ import { CreateMerchantDto } from './dto/create-merchant.dto';
 import { UpdateMerchantDto } from './dto/update-merchant.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
-import { Merchant, MerchantSortBy } from '@/entities/merchant.entity';
+import { MerchantV2, MerchantSortBy } from '@/entities/merchant.entity';
 import { PageResult, PagingSortDto } from '@/dtos/paging.dto';
 
 @Injectable()
 export class MerchantService {
     constructor(
-        @InjectModel(Merchant.name) private merchantModel: Model<Merchant>,
+        @InjectModel(MerchantV2.name) private merchantModel: Model<MerchantV2>,
     ) {}
 
     async create(createMerchantDto: CreateMerchantDto) {
@@ -27,7 +27,7 @@ export class MerchantService {
 
     async findAll(
         queryParams: PagingSortDto<MerchantSortBy>,
-    ): Promise<PageResult<Merchant>> {
+    ): Promise<PageResult<MerchantV2>> {
         const {
             size = 10,
             page = 1,
@@ -69,7 +69,7 @@ export class MerchantService {
             ])
             .sort({ [sortBy]: sort });
 
-        const result: PageResult<Merchant> = {
+        const result: PageResult<MerchantV2> = {
             items: [],
         };
 

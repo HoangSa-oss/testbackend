@@ -3,20 +3,20 @@ import _ from 'lodash';
 import { Types } from 'mongoose';
 import { SYSTEM_ADMIN } from '../../constants/string-constants';
 import { AggregateRoot } from '../aggregate-root';
-import { User } from './user.entity';
+import { UserV2 } from './user.entity';
 
-export type UserLoginDocument = UserLogin & Document;
+export type UserLoginDocument = UserLoginV2 & Document;
 
-@Schema({ timestamps: true, collection: `${_.camelCase(UserLogin.name)}s` })
-export class UserLogin extends AggregateRoot {
+@Schema({ timestamps: true, collection: `${_.camelCase(UserLoginV2.name)}s` })
+export class UserLoginV2 extends AggregateRoot {
     constructor() {
         super();
         this._id = Types.ObjectId;
         this.createdBy = SYSTEM_ADMIN;
     }
 
-    @Prop({ type: Types.ObjectId, ref: User.name })
-    user: User;
+    @Prop({ type: Types.ObjectId, ref: UserV2.name })
+    user: UserV2;
 
     @Prop()
     loginTime: string;
@@ -31,4 +31,4 @@ export class UserLogin extends AggregateRoot {
     logOutTime: string;
 }
 
-export const UserLoginSchema = SchemaFactory.createForClass(UserLogin);
+export const UserLoginSchema = SchemaFactory.createForClass(UserLoginV2);

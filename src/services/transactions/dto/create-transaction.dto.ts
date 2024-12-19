@@ -1,4 +1,4 @@
-import { Topup } from '@/entities/topup.entity';
+import { TopupV2} from '@/entities/topup.entity';
 
 export class TransactionDto {
     transactionRequest: string;
@@ -8,5 +8,5 @@ export class TransactionDto {
     orderNo: string;
     amount: number;
     email: string;
-    topup: Topup;
+    topup: TopupV2;
 }

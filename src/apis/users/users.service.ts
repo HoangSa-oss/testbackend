@@ -1,23 +1,23 @@
-import { UserCode } from './../../models/entities/user-code';
+import { UserCodeV2 } from './../../models/entities/user-code';
 import { BadRequestException, forwardRef, Inject, Injectable } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { User, UserSortBy } from '@/entities/user.entity';
+import { UserV2, UserSortBy } from '@/entities/user.entity';
 import mongoose, { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { CreateUserProviderDto } from './dto/create-user-provider.dto';
-import { UserProvider } from '@/entities/user-provider.entity';
+import { UserProviderV2 } from '@/entities/user-provider.entity';
 import { CreateUserDeviceDto } from './dto/create-user-device.dto';
 import { CreateUserTokenDto } from './dto/create-user-token.dto';
-import { UserToken } from '@/entities/user-token.entity';
-import { UserRole } from '@/entities/user-role.entity';
+import { UserTokenV2 } from '@/entities/user-token.entity';
+import { UserRoleV2 } from '@/entities/user-role.entity';
 import { Status, UserType, CodeType } from '../../constants/enums';
 import { UpdateProfileDto } from './dto/update-profile.dto';
 import { RegisterUserDto } from '../auth/dto/user-create.dto';
 import { UserPointDto } from './dto/user-point.dto';
 import { appSettings } from 'src/configs/appsettings';
 import { randomCharacter } from '../../extensions/function-helper';
-import { UserDevice } from '@/entities/user-device.entity';
+import { UserDeviceV2 } from '@/entities/user-device.entity';
 import { PageResult, PagingSortDto } from '@/dtos/paging.dto';
 import { MailService } from 'src/services/mail/mail.service';
 import { JwtService } from '@nestjs/jwt';
@@ -26,20 +26,20 @@ export class UsersService {
     constructor(
         private mailService:MailService,
         private jwtService:JwtService,
-        @InjectModel(User.name) private userModel: Model<User>,
-        @InjectModel(UserDevice.name)
-        private userDeviceModel: Model<UserDevice>,
-        @InjectModel(UserProvider.name)
-        private userProviderModel: Model<UserProvider>,
-        @InjectModel(UserToken.name) private userTokenModel: Model<UserToken>,
-        @InjectModel(UserRole.name) private userRoleModel: Model<UserRole>,
-        @InjectModel(UserCode.name) private userCodeModel: Model<UserCode>,
+        @InjectModel(UserV2.name) private userModel: Model<UserV2>,
+        @InjectModel(UserDeviceV2.name)
+        private userDeviceModel: Model<UserDeviceV2>,
+        @InjectModel(UserProviderV2.name)
+        private userProviderModel: Model<UserProviderV2>,
+        @InjectModel(UserTokenV2.name) private userTokenModel: Model<UserTokenV2>,
+        @InjectModel(UserRoleV2.name) private userRoleModel: Model<UserRoleV2>,
+        @InjectModel(UserCodeV2.name) private userCodeModel: Model<UserCodeV2>,
     ) {}
     async verifyUser(token:any){
         const {sub} = await this.jwtService.verifyAsync(token.token)
-        const{user_id} = sub
+        const{id} = sub
         // const user = await this.userModel.findById(user_id)
-        return await this.userModel.updateOne({_id:user_id},{is_verify_email:true})
+        return await this.userModel.updateOne({_id:id},{is_verify_email:true})
     }
     async findUserByUsername(username: string) {
         if (!username) {
@@ -69,7 +69,7 @@ export class UsersService {
         return user;
     }
 
-    async create(createUserDto: CreateUserDto): Promise<User> {
+    async create(createUserDto: CreateUserDto): Promise<UserV2> {
         const userExist = await this.findUserByUsername(
             createUserDto.user_name,
         );
@@ -108,7 +108,7 @@ export class UsersService {
         return userModel;
     }
 
-    async registerUser(createUserDto: RegisterUserDto): Promise<User> {
+    async registerUser(createUserDto: RegisterUserDto): Promise<UserV2> {
         const userExist = await this.findUserByUsername(
             createUserDto.user_name,
         );
@@ -147,14 +147,12 @@ export class UsersService {
             upsert: true,
             new: true,
         });
-        const {user_name,id} = newUser
-        await this.mailService.sendUserConfirmation({user_name,id})
-        return userModel.id;
+        return userModel._id
     }
     
     async findAll(
         queryParams: PagingSortDto<UserSortBy>,
-    ): Promise<PageResult<User>> {
+    ): Promise<PageResult<UserV2>> {
         const {
             size = 10,
             page = 1,
@@ -200,7 +198,7 @@ export class UsersService {
             ])
             .sort({ [sortBy]: sort });
 
-        const result: PageResult<User> = {
+        const result: PageResult<UserV2> = {
             items: [],
         };
 
@@ -303,11 +301,11 @@ export class UsersService {
         };
     }
 
-    async findOne(userId: string): Promise<User | undefined> {
+    async findOne(userId: string): Promise<UserV2 | undefined> {
         return await this.userModel.findById(userId);
     }
 
-    async findOneByUsername(username: string): Promise<User | undefined> {
+    async findOneByUsername(username: string): Promise<UserV2 | undefined> {
         return await this.userModel.findOne({ username });
     }
 
@@ -385,7 +383,7 @@ export class UsersService {
         return permissionIds;
     }
 
-    async sendPoint(userPointDto: UserPointDto, user: User) {
+    async sendPoint(userPointDto: UserPointDto, user: UserV2) {
         return;
     }
 
@@ -404,7 +402,7 @@ export class UsersService {
         return;
     }
 
-    async findUserByRefcode(refCode: string): Promise<User | undefined> {
+    async findUserByRefcode(refCode: string): Promise<UserV2 | undefined> {
         const user = await this.userModel.findOne({ ref_code: refCode });
         return user;
     }
@@ -430,7 +428,7 @@ export class UsersService {
         return await this.findOne(userId);
     }
 
-    async createUserCode(user: User, type: string) {
+    async createUserCode(user: UserV2, type: string) {
         const code = randomCharacter(6);
         const now = Date.now();
         const expireTime = now + appSettings.codeExpired;

@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import { Types } from 'mongoose';
 import { ROLES, USERS } from '../../constants/string-constants';
-import { UserRole } from '../../models/entities/user-role.entity';
+import { UserRoleV2 } from '../../models/entities/user-role.entity';
 import { SeedDataModel } from '../seedMain';
 
 interface UserRoleModel {
@@ -26,7 +26,7 @@ const data: UserRoleModel[] = [
 
 const SeederUserRole: SeedDataModel = {
     data,
-    collectionName: `${_.camelCase(UserRole.name)}s`,
+    collectionName: `${_.camelCase(UserRoleV2.name)}s`,
 };
 
 export default SeederUserRole;

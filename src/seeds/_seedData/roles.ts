@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import { Types } from 'mongoose';
-import { Role } from '../../models/entities/role.entity';
+import { RoleV2 } from '../../models/entities/role.entity';
 import { SeedDataModel } from '../seedMain';
 import { ROLES } from '../../constants/string-constants';
 import { Permissions } from '../../models/enums/permissions.enum';
@@ -36,7 +36,7 @@ const data: RoleModel[] = [
 
 const SeederRole: SeedDataModel = {
     data,
-    collectionName: `${_.camelCase(Role.name)}s`,
+    collectionName: `${_.camelCase(RoleV2.name)}s`,
 };
 
 export default SeederRole;

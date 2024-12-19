@@ -2,10 +2,10 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import _ from 'lodash';
 import { AggregateRoot } from '../aggregate-root';
 
-export type RoleDocument = Role & Document;
+export type RoleDocument = RoleV2 & Document;
 
-@Schema({ timestamps: true, collection: `${_.camelCase(Role.name)}s` })
-export class Role extends AggregateRoot {
+@Schema({ timestamps: true, collection: `${_.camelCase(RoleV2.name)}s` })
+export class RoleV2 extends AggregateRoot {
     constructor() {
         super();
     }
@@ -17,4 +17,4 @@ export class Role extends AggregateRoot {
     permission: number;
 }
 
-export const RoleSchema = SchemaFactory.createForClass(Role);
+export const RoleSchema = SchemaFactory.createForClass(RoleV2);

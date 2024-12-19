@@ -1,8 +1,8 @@
 import { Types } from 'mongoose';
-import { Role } from '@/entities/role.entity';
-import { User } from '@/entities/user.entity';
+import { RoleV2 } from '@/entities/role.entity';
+import { UserV2 } from '@/entities/user.entity';
 
 export class UserRoleModel {
-    user: User | Types.ObjectId;
-    role: Role | Types.ObjectId;
+    user: UserV2 | Types.ObjectId;
+    role: RoleV2 | Types.ObjectId;
 }

@@ -1,6 +1,6 @@
 import { MailerService } from '@nestjs-modules/mailer';
 import { Injectable } from '@nestjs/common';
-import { User } from '../../models/entities/user.entity';
+import { UserV2 } from '../../models/entities/user.entity';
 import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
@@ -20,7 +20,6 @@ export class MailService {
         expiresIn: process.env.EXPIRE_IN_SEND_MAIL,
     }) 
     const url = `${process.env.URL_SEND_MAIL}/auth/verify-user?token=${token}`;
-    console.log(url)
     await this.mailerService.sendMail({
       to: user.email,
       // from: '"Support Team" <support@example.com>', // override default from
@@ -43,10 +42,10 @@ export class MailService {
       await this.mailerService.sendMail({
         to: email,
         // from: '"Support Team" <support@example.com>', // override default from
-        subject: 'Welcome to Bytepays! Confirm your Email',
+        subject: 'Welcome to Bytepays! Password',
         html:`
         <p>Please click below to create new password</p>
-        <p>Click this <a href="{{${url}}">Link</a></p>
+        <p>Click this <a href="{{${url}}">Link:${url}</a></p>
         <p>If you did not request this email you can safely ignore it.</p>`
       });
 

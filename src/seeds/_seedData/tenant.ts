@@ -2,7 +2,7 @@ import _ from 'lodash';
 import { Types } from 'mongoose';
 import { SeedDataModel } from '../seedMain';
 import { TENANTS } from '../../constants/string-constants';
-import { Tenant } from '../../models/entities/tenant.entity';
+import { TenantV2 } from '../../models/entities/tenant.entity';
 
 interface TenantModel {
     _id: Types.ObjectId;
@@ -21,7 +21,7 @@ const data: TenantModel[] = [
 
 const SeederTenant: SeedDataModel = {
     data,
-    collectionName: `${_.camelCase(Tenant.name)}s`,
+    collectionName: `${_.camelCase(TenantV2.name)}s`,
 };
 
 export default SeederTenant;

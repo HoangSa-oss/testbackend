@@ -1,4 +1,4 @@
-import { Transaction } from '@/entities/transaction.entity';
+import { TransactionV2 } from '@/entities/transaction.entity';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
@@ -7,8 +7,8 @@ import { TransactionDto } from './dto/create-transaction.dto';
 @Injectable()
 export class TransactionsService {
     constructor(
-        @InjectModel(Transaction.name)
-        private transactionModel: Model<Transaction>,
+        @InjectModel(TransactionV2.name)
+        private transactionModel: Model<TransactionV2>,
     ) {}
 
     async findByRefCode(refCode: string) {

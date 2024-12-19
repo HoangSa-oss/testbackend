@@ -2,9 +2,9 @@ import { AssignRoleDto } from './dto/assign-role.dto';
 import { Injectable, BadRequestException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
-import { Role } from '@/entities/role.entity';
-import { UserRole } from '@/entities/user-role.entity';
-import { User } from '@/entities/user.entity';
+import { RoleV2 } from '@/entities/role.entity';
+import { UserRoleV2 } from '@/entities/user-role.entity';
+import { UserV2 } from '@/entities/user.entity';
 import { CreateRoleDto } from './dto/create-role.dto';
 import { UpdateRoleDto } from './dto/update-role.dto';
 import { UserRoleModel } from './models/user-role.model';
@@ -12,17 +12,17 @@ import { UserRoleModel } from './models/user-role.model';
 @Injectable()
 export class RolesService {
     constructor(
-        @InjectModel(Role.name) private roleModel: Model<Role>,
-        @InjectModel(UserRole.name) private userRoleModel: Model<UserRole>,
-        @InjectModel(User.name) private userModel: Model<User>, // private readonly userService: UsersService,
+        @InjectModel(RoleV2.name) private roleModel: Model<RoleV2>,
+        @InjectModel(UserRoleV2.name) private userRoleModel: Model<UserRoleV2>,
+        @InjectModel(UserV2.name) private userModel: Model<UserV2>, // private readonly userService: UsersService,
     ) {}
 
-    async create(createRoleDto: CreateRoleDto): Promise<Role> {
+    async create(createRoleDto: CreateRoleDto): Promise<RoleV2> {
         const createRole = new this.roleModel(createRoleDto);
         return createRole.save();
     }
 
-    async findAll(): Promise<Role[]> {
+    async findAll(): Promise<RoleV2[]> {
         return this.roleModel.find().exec();
     }
 

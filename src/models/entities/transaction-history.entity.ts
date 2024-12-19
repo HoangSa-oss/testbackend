@@ -2,15 +2,15 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import _ from 'lodash';
 import { AggregateRoot } from '../aggregate-root';
 import { Types } from 'mongoose';
-import { Transaction } from './transaction.entity';
+import { TransactionV2} from './transaction.entity';
 
-export type TransactionHistoryDocument = TransactionHistory & Document;
+export type TransactionHistoryDocument = TransactionHistoryV2 & Document;
 
 @Schema({
     timestamps: true,
-    collection: `${_.camelCase('TransactionHistories')}`,
+    collection: `${_.camelCase(TransactionHistoryV2.name)}s`,
 })
-export class TransactionHistory extends AggregateRoot {
+export class TransactionHistoryV2 extends AggregateRoot {
     constructor() {
         super();
     }
@@ -27,9 +27,9 @@ export class TransactionHistory extends AggregateRoot {
     @Prop()
     orderNo: string;
 
-    @Prop({ type: Types.ObjectId, ref: Transaction.name })
-    transaction: string;
+    @Prop({ type: Types.ObjectId, ref: TransactionV2.name })
+    transaction: TransactionV2;
 }
 
 export const TransactionHistorySchema =
-    SchemaFactory.createForClass(TransactionHistory);
+    SchemaFactory.createForClass(TransactionHistoryV2);

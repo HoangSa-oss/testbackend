@@ -3,13 +3,13 @@ import _ from 'lodash';
 import { Types } from 'mongoose';
 import { CodeType } from 'src/constants/enums';
 import { AggregateRoot } from '../aggregate-root';
-import { User } from './user.entity';
+import { UserV2 } from './user.entity';
 
 // user code use by check reset password or something when change info
-@Schema({ timestamps: true, collection: `${_.camelCase(UserCode.name)}s` })
-export class UserCode extends AggregateRoot {
-    @Prop({ type: Types.ObjectId, ref: User.name })
-    user: User;
+@Schema({ timestamps: true, collection: `${_.camelCase(UserCodeV2.name)}s` })
+export class UserCodeV2 extends AggregateRoot {
+    @Prop({ type: Types.ObjectId, ref: UserV2.name })
+    user: UserV2;
 
     @Prop()
     type: CodeType;
@@ -24,4 +24,4 @@ export class UserCode extends AggregateRoot {
     used: boolean;
 }
 
-export const UserCodeSchema = SchemaFactory.createForClass(UserCode);
+export const UserCodeSchema = SchemaFactory.createForClass(UserCodeV2);

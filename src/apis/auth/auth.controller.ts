@@ -225,7 +225,6 @@ export class AuthController extends BaseController {
     @Public()
     @Post('forgot-password')
     async forgotPassword(@Query('token') token:string, @Body('password') password:ForgotPasswordDto) {
-       
         return await this.authService.forgotPassword(token,password.password)
         // return await this.authService.resetPassword(
         //     model.username,

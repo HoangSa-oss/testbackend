@@ -2,12 +2,12 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import _ from 'lodash';
 import { AggregateRoot } from '../aggregate-root';
 import { Types } from 'mongoose';
-import { Topup } from './topup.entity';
+import { TopupV2 } from './topup.entity';
 
-export type TransactionDocument = Transaction & Document;
+export type TransactionDocument = TransactionV2 & Document;
 
-@Schema({ timestamps: true, collection: `${_.camelCase(Transaction.name)}s` })
-export class Transaction extends AggregateRoot {
+@Schema({ timestamps: true, collection: `${_.camelCase(TransactionV2.name)}s` })
+export class TransactionV2 extends AggregateRoot {
     constructor() {
         super();
     }
@@ -33,8 +33,8 @@ export class Transaction extends AggregateRoot {
     @Prop()
     email: string;
 
-    @Prop({ type: Types.ObjectId, ref: Topup.name })
-    topup: Topup;
+    @Prop({ type: Types.ObjectId, ref: TopupV2.name })
+    topup: TopupV2;
 }
 
-export const TransactionSchema = SchemaFactory.createForClass(Transaction);
+export const TransactionSchema = SchemaFactory.createForClass(TransactionV2);

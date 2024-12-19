@@ -3,14 +3,14 @@ import { AggregateRoot } from '../aggregate-root';
 import { Document, Types } from 'mongoose';
 import _ from 'lodash';
 import { Status } from '../../constants/enums';
-import { User } from './user.entity';
+import { UserV2 } from './user.entity';
 
-export type UserConfigDocument = UserConfig & Document;
+export type UserConfigDocument = UserConfigV2 & Document;
 
-@Schema({ timestamps: true, collection: `${_.camelCase(UserConfig.name)}s` })
-export class UserConfig extends AggregateRoot {
-    @Prop({ type: Types.ObjectId, ref: User.name })
-    user: User;
+@Schema({ timestamps: true, collection: `${_.camelCase(UserConfigV2.name)}s` })
+export class UserConfigV2 extends AggregateRoot {
+    @Prop({ type: Types.ObjectId, ref: UserV2.name })
+    user: UserV2;
 
     @Prop()
     key: string;
@@ -22,4 +22,4 @@ export class UserConfig extends AggregateRoot {
     status: Status;
 }
 
-export const UserConfigSchema = SchemaFactory.createForClass(UserConfig);
+export const UserConfigSchema = SchemaFactory.createForClass(UserConfigV2);

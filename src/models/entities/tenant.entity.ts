@@ -2,12 +2,12 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import _ from 'lodash';
 import { AggregateRoot } from '../aggregate-root';
 
-export type TenantDocument = Tenant & Document;
+export type TenantDocument = TenantV2 & Document;
 
-@Schema({ timestamps: true, collection: `${_.camelCase(Tenant.name)}s` })
-export class Tenant extends AggregateRoot {
+@Schema({ timestamps: true, collection: `${_.camelCase(TenantV2.name)}s` })
+export class TenantV2 extends AggregateRoot {
     @Prop()
     name: string;
 }
 
-export const TenantSchema = SchemaFactory.createForClass(Tenant);
+export const TenantSchema = SchemaFactory.createForClass(TenantV2);

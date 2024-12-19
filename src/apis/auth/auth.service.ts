@@ -68,7 +68,7 @@ export class AuthService {
         const userModel = await this.usersService.findOne(
             user.user_id.toString(),
         );
-        const {user_name,email,street,city} = userModel
+        const {id,user_name,email,street,city} = userModel
         if (!userModel) {
             throw new BadRequestException(
                 'User not found',
@@ -76,7 +76,7 @@ export class AuthService {
             );
         }
         if(userModel.is_verify_email==false){
-            await this.mailService.sendUserConfirmation(user)
+            await this.mailService.sendUserConfirmation({user_name,email,id})
             throw new UnauthorizedException(
                 'User not confirm email, Please check mail'
             )     

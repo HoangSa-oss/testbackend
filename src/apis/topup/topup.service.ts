@@ -2,14 +2,14 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { CreateTopupDto } from './dto/create-topup.dto';
 import { UpdateTopupDto } from './dto/update-topup.dto';
 import { InjectModel } from '@nestjs/mongoose';
-import { Topup } from '@/entities/topup.entity';
+import { TopupV2 } from '@/entities/topup.entity';
 import { Model, Types } from 'mongoose';
 import { MerchantService } from '../merchant/merchant.service';
 
 @Injectable()
 export class TopupService {
     constructor(
-        @InjectModel(Topup.name) private topupModel: Model<Topup>,
+        @InjectModel(TopupV2.name) private topupModel: Model<TopupV2>,
         private merchantService: MerchantService,
     ) {}
     async create(createTopupDto: CreateTopupDto) {

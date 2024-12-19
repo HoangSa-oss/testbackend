@@ -1,15 +1,15 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import _ from 'lodash';
 import { AggregateRoot } from '../aggregate-root';
-import { User } from './user.entity';
+import { UserV2 } from './user.entity';
 import { Types } from 'mongoose';
-import { Topup } from './topup.entity';
+import { TopupV2 } from './topup.entity';
 
 export type MerchantSortBy = 'name' | 'isActive' | 'partnerCode';
-export type MerchantDocument = Merchant & Document;
+export type MerchantDocument = MerchantV2 & Document;
 
-@Schema({ timestamps: true, collection: `${_.camelCase(Merchant.name)}s` })
-export class Merchant extends AggregateRoot {
+@Schema({ timestamps: true, collection: `${_.camelCase(MerchantV2.name)}s` })
+export class MerchantV2 extends AggregateRoot {
     constructor() {
         super();
     }
@@ -33,10 +33,10 @@ export class Merchant extends AggregateRoot {
     deleted: boolean;
 
     @Prop({ type: [{ type: Types.ObjectId, ref: 'topups' }] })
-    topups: Topup[]; // Array of topup object IDs
+    topups: TopupV2[]; // Array of topup object IDs
 
-    @Prop({ type: Types.ObjectId, ref: User.name })
-    user: User;
+    @Prop({ type: Types.ObjectId, ref: UserV2.name })
+    user: UserV2;
 }
 
-export const MerchantSchema = SchemaFactory.createForClass(Merchant);
+export const MerchantSchema = SchemaFactory.createForClass(MerchantV2);

@@ -2,29 +2,29 @@ import { Module } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { UsersController } from './users.controller';
 import { MongooseModule } from '@nestjs/mongoose';
-import { User, UserSchema } from '@/entities/user.entity';
+import { UserV2, UserSchema } from '@/entities/user.entity';
 import {MailService} from '../../services/mail/mail.service'
 import {
-    UserLogin,
+    UserLoginV2,
     UserLoginSchema,
 } from '../../models/entities/user-login.entity';
 import {
-    UserDevice,
+    UserDeviceV2,
     UserDeviceSchema,
 } from '../../models/entities/user-device.entity';
 import {
-    UserProvider,
+    UserProviderV2,
     UserProviderSchema,
 } from '../../models/entities/user-provider.entity';
 import {
-    UserToken,
+    UserTokenV2,
     UserTokenSchema,
 } from '../../models/entities/user-token.entity';
-import { UserRole, UserRoleSchema } from '@/entities/user-role.entity';
+import { UserRoleV2, UserRoleSchema } from '@/entities/user-role.entity';
 import { RolesService } from '../roles/roles.service';
-import { Role, RoleSchema } from '@/entities/role.entity';
-import { UserCode, UserCodeSchema } from '../../models/entities/user-code';
-import { Tenant, TenantSchema } from '@/entities/tenant.entity';
+import { RoleV2, RoleSchema } from '@/entities/role.entity';
+import { UserCodeV2, UserCodeSchema } from '../../models/entities/user-code';
+import { TenantV2, TenantSchema } from '@/entities/tenant.entity';
 import { MailModule } from 'src/services/mail/mail.module';
 import { AuthService } from '../auth/auth.service';
 import { AuthModule } from 'src/apis/auth/auth.module';
@@ -41,15 +41,15 @@ import { appSettings } from 'src/configs/appsettings';
                 }),
         MailModule,
         MongooseModule.forFeature([
-            { name: User.name, schema: UserSchema },
-            { name: UserLogin.name, schema: UserLoginSchema },
-            { name: UserDevice.name, schema: UserDeviceSchema },
-            { name: UserProvider.name, schema: UserProviderSchema },
-            { name: UserToken.name, schema: UserTokenSchema },
-            { name: UserRole.name, schema: UserRoleSchema },
-            { name: Role.name, schema: RoleSchema },
-            { name: UserCode.name, schema: UserCodeSchema },
-            { name: Tenant.name, schema: TenantSchema },
+            { name: UserV2.name, schema: UserSchema },
+            { name: UserLoginV2.name, schema: UserLoginSchema },
+            { name: UserDeviceV2.name, schema: UserDeviceSchema },
+            { name: UserProviderV2.name, schema: UserProviderSchema },
+            { name: UserTokenV2.name, schema: UserTokenSchema },
+            { name: UserRoleV2.name, schema: UserRoleSchema },
+            { name: RoleV2.name, schema: RoleSchema },
+            { name: UserCodeV2.name, schema: UserCodeSchema },
+            { name: TenantV2.name, schema: TenantSchema },
         ]),
     ],
     controllers: [UsersController],

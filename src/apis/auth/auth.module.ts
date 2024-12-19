@@ -7,7 +7,7 @@ import { ConfigModule } from '@nestjs/config';
 import { appSettings } from 'src/configs/appsettings';
 import { SessionSerializer } from './session.serializer';
 import { JwtStrategy } from '../../strategies/jwt.strategy';
-import { LocalStrategy } from '../../strategies/local.strategy';
+import { LocalStrategy } from 'src/strategies/local.strategy';
 import { FacebookStrategy } from 'src/strategies/facebook.strategy';
 import { GoogleStrategy } from 'src/strategies/google.strategy';
 import { GoogleVerifyStrategy } from 'src/strategies/google-verify.strategy';
@@ -32,16 +32,16 @@ import { MailModule } from 'src/services/mail/mail.module';
 
     providers: [
         AuthService,
-        LocalStrategy,
-        JwtStrategy,
-        // OidcStrategyFactory,
+     LocalStrategy,
+     JwtStrategy,
+    //  OidcStrategyFactory,
         SessionSerializer,
-        // FacebookStrategy,
-        // GoogleStrategy,
-        // GoogleVerifyStrategy,
-        // GoogleVerifyIdTokenStrategy,
-        // FacebookVerifyStrategy,
-        RefreshTokenStrategy,
+    //  FacebookStrategy,
+    //  GoogleStrategy,
+    //  GoogleVerifyStrategy,
+    //  GoogleVerifyIdTokenStrategy,
+    //  FacebookVerifyStrategy,
+     RefreshTokenStrategy,
     ],
     controllers: [AuthController],
     exports: [AuthService],

@@ -1,5 +1,5 @@
-import { TransactionHistory } from '@/entities/transaction-history.entity';
-import { Transaction } from '@/entities/transaction.entity';
+import { TransactionHistoryV2 } from '@/entities/transaction-history.entity';
+import { TransactionV2 } from '@/entities/transaction.entity';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
@@ -8,8 +8,8 @@ import { Model } from 'mongoose';
 export class TransactionHistoriesService {
     constructor(
         // @Inject(CACHE_MANAGER) private cacheManager: KeyvAdapter,
-        @InjectModel(TransactionHistory.name)
-        private transactionHistoryModel: Model<TransactionHistory>
+        @InjectModel(TransactionHistoryV2.name)
+        private transactionHistoryModel: Model<TransactionHistoryV2>
     ) {}
 
     async createTransctionHistory(
@@ -17,7 +17,7 @@ export class TransactionHistoriesService {
         refCode: string,
         orderNo: string,
         message: string,
-        transaction?: Transaction,
+        transaction?: TransactionV2,
     ) {
         const transactionHistory = new this.transactionHistoryModel({
             responseCode: responseCode,

@@ -3,7 +3,7 @@ import _ from 'lodash';
 import { SeedDataModel } from '../seedMain';
 import { TENANTS, USERS } from '../../constants/string-constants';
 import { UserType } from '../../constants/enums';
-import { User } from '../../models/entities/user.entity';
+import { UserV2 } from '../../models/entities/user.entity';
 
 interface UserModel {
     _id: Types.ObjectId;
@@ -56,7 +56,7 @@ const data: UserModel[] = [
 
 const SeederUser: SeedDataModel = {
     data,
-    collectionName: `${_.camelCase(User.name)}s`,
+    collectionName: `${_.camelCase(UserV2.name)}s`,
 };
 
 export default SeederUser;

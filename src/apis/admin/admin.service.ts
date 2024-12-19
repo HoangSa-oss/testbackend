@@ -1,18 +1,18 @@
 import { Injectable } from '@nestjs/common';
 import { CreateAdminDto } from './dto/create-admin.dto';
 import { UpdateAdminDto } from './dto/update-admin.dto';
-import { User } from '@/entities/user.entity';
-import { Role } from '@/entities/role.entity';
+import { UserV2 } from '@/entities/user.entity';
+import { RoleV2 } from '@/entities/role.entity';
 import { Permissions } from '@/enums/permissions.enum';
 import { InjectModel } from '@nestjs/mongoose';
-import { Tenant } from '@/entities/tenant.entity';
+import { TenantV2 } from '@/entities/tenant.entity';
 import { Model } from 'mongoose';
 
 @Injectable()
 export class AdminService {
-    constructor(@InjectModel(Tenant.name) private tenantModel: Model<Tenant>) {}
+    constructor(@InjectModel(TenantV2.name) private tenantModel: Model<TenantV2>) {}
 
-    async switchTenant(superAdmin: User, role: Role, targetTenantId: string) {
+    async switchTenant(superAdmin: UserV2, role: RoleV2, targetTenantId: string) {
         if (role.permission & Permissions.FULL_ADMIN) {
             const tenant = await this.tenantModel.findById(targetTenantId);
             if (tenant) {

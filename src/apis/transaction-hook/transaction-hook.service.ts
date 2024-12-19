@@ -3,7 +3,7 @@ import { TransactionsService } from 'src/services/transactions/transactions.serv
 import { TransactionHistoriesService } from 'src/services/transaction-histories/transaction-histories.service';
 import { CallBackData } from '@/lib/dto/callback-data';
 import { Model } from 'mongoose';
-import { TransactionHistory } from '@/entities/transaction-history.entity';
+import { TransactionHistoryV2 } from '@/entities/transaction-history.entity';
 import { InjectModel } from '@nestjs/mongoose';
 
 @Injectable()

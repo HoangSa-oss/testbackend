@@ -21,21 +21,21 @@ async function bootstrap() {
 
     app.enableCors({
         origin: async function (origin, callback) {
-            // const isCached = !!getQueryParam(origin, 'isCached');
-            // const whitelist = await getWhiteListDomains(isCached);
-            // const regexPattern = `^https?:\\/\\/(?:${whitelist.map((domain) => domain.replace('.', '\\.')).join('|')})(\\/.*)?$`;
-            // const regex = new RegExp(regexPattern);
-            // console.log(JSON.stringify({ origin, whitelist }));
+//            const isCached = !!getQueryParam(origin, 'isCached');
+//            const whitelist = await getWhiteListDomains(isCached);
+//            const regexPattern = `^https?:\\/\\/(?:${whitelist.map((domain) => domain.replace('.', '\\.')).join('|')})(\\/.*)?$`;
+//            const regex = new RegExp(regexPattern);
+//            console.log(JSON.stringify({ origin, whitelist }));
 
-            // if (!origin || regex.test(origin)) {
+ //           if (!origin || regex.test(origin)) {
                 callback(null, true);
-            // } else {
-            //     callback(
-            //         new UnprocessableEntityException(
-            //             'Not allowed by CORS',
-            //         ),
-            //     );
-            // }
+ //           } else {
+ //               callback(
+ //                   new UnprocessableEntityException(
+ //                       'Not allowed by CORS',
+ //                   ),
+ //               );
+//            }
         },
     });
 
@@ -45,7 +45,7 @@ async function bootstrap() {
         new TransformInterceptor(),
     );
     // app.use(session({ secret: 'melody hensley is my spirit animal' }));
-    app.use(passport.initialize());
+//    app.use(passport.initialize());
     // app.use(passport.session());
     app.useGlobalPipes(
         new ValidationPipe({ transform: true, whitelist: false }), // temp

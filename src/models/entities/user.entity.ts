@@ -7,13 +7,13 @@ import _ from 'lodash';
 import * as bcrypt from 'bcryptjs';
 import { BadRequestException } from '@nestjs/common';
 import { Status, UserType } from '../../constants/enums';
-import { Tenant } from './tenant.entity';
+import { TenantV2 } from './tenant.entity';
 
 export type UserSortBy = 'email' | 'fullName' | 'userType' | 'status';
-export type UserDocument = User & Document;
+export type UserDocument = UserV2 & Document;
 
-@Schema({ timestamps: true, collection: `${_.camelCase(User.name)}s` })
-export class User extends AggregateRoot {
+@Schema({ timestamps: true, collection: `${_.camelCase(UserV2.name)}s` })
+export class UserV2 extends AggregateRoot {
     constructor() {
         super();
     }
@@ -81,16 +81,16 @@ export class User extends AggregateRoot {
     @Prop({ default: 1 })
     remaining_cashback: number;
 
-    @Prop({ type: Types.ObjectId, ref: Tenant.name })
-    tenant: Tenant;
+    @Prop({ type: Types.ObjectId, ref: TenantV2.name })
+    tenant: TenantV2;
 
     isSuperAdmin: Function;
     hashPassword: Function;
     matchPassword: Function;
 }
 
-export const UserSchema = SchemaFactory.createForClass(User);
-export const UserModel = model<User>('users', UserSchema);
+export const UserSchema = SchemaFactory.createForClass(UserV2);
+export const UserModel = model<UserV2>('userV2s', UserSchema);
 
 const hashPassword = async (password: string) => {
     try {
